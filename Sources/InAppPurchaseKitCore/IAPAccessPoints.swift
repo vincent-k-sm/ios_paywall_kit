@@ -18,6 +18,7 @@ public protocol IAPStatusProvider {
     var isForceFree: Bool { get }
     var hasUsedFreeTrial: Bool { get }
     var statusLabel: String { get }
+    var products: [IAPProduct] { get }
 }
 
 // MARK: - 상태 변경 + StoreKit 액션

@@ -59,6 +59,10 @@ open class IAPServiceBase: IAPStatusProvider, IAPAdminProvider {
         return IAPManager.shared.hasUsedFreeTrial
     }
 
+    public var products: [IAPProduct] {
+        return Self._products
+    }
+
     public var statusLabel: String {
         switch IAPManager.shared.purchaseStatus {
             case .forceFree: return "forceFree"
