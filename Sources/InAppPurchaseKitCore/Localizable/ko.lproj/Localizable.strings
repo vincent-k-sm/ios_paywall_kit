@@ -14,35 +14,3 @@
 "iap_alert_subscription_required_message" = "이 기능은 프리미엄 구독자만 사용할 수 있습니다.";
 "iap_alert_subscription_required_action" = "구독하기";
 "iap_alert_cancel" = "취소";
-
-/* Reward Code */
-"iap_reward_section_title" = "후원자 인증";
-"iap_reward_section_description" = "텀블벅 후원자분들은 전달받은 코드를 입력해 주세요. 인증 후에는 연동된 애플 계정에 평생 이용권이 귀속됩니다.";
-"iap_reward_input_placeholder" = "REWARD_XXXXXXXX";
-"iap_reward_button_verify" = "코드 인증";
-"iap_reward_apple_signin_title" = "애플 계정 연동하기";
-"iap_reward_apple_signin_description" = "기기 변경 시에도 구매 내역을 유지하려면 애플 로그인이 필요합니다.";
-"iap_reward_apple_signin_button" = "애플 계정으로 연동";
-
-/* PremiumFeatureManager - Feature Descriptions */
-"iap_feature_unlimited_items" = "무제한 항목 생성";
-"iap_feature_custom_tags" = "사용자 정의 태그";
-"iap_feature_unlimited_photos" = "무제한 사진 첨부";
-"iap_feature_unlimited_memos" = "무제한 메모 추가";
-"iap_feature_app_lock" = "앱 잠금";
-"iap_feature_priority_support" = "우선 고객 지원";
-
-/* PremiumFeatureManager - Free Limit Descriptions */
-"iap_free_limit_items" = "월 %d개 제한";
-"iap_free_limit_tags" = "기본 태그만 사용 가능";
-"iap_free_limit_photos" = "아이템당 %d장 제한";
-"iap_free_limit_memos" = "아이템당 %d개 제한";
-"iap_free_limit_app_lock" = "프리미엄 전용";
-"iap_free_limit_support" = "일반 지원 (48시간 이내)";
-
-/* ProService */
-"iap_promo_code_not_found" = "존재하지 않는 코드입니다.";
-"iap_promo_code_invalid" = "유효하지 않거나 이미 사용된 코드입니다.";
-"iap_promo_success_lifetime" = "인증 성공! 평생 이용이 가능합니다.";
-"iap_promo_success_until" = "인증 성공! %@까지 프리미엄을 이용하실 수 있습니다.";
-"iap_promo_unknown_error" = "알 수 없는 오류가 발생했습니다.";
