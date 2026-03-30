@@ -176,13 +176,6 @@ public final class IAPManager {
         self.applyStatus(purchased ? .subscribed : .free)
     }
 
-    public func refreshStatusFromExternalSource() {
-        let resolved = self.isInFreeTrial ? PurchaseStatus.freeTrial : .free
-        if self.lastStatus != .admin && self.lastStatus != .subscribed {
-            self.applyStatus(resolved)
-        }
-    }
-
     @discardableResult
     public func checkPurchaseStatus() async -> Bool {
         if self.isAdmin { return true }
