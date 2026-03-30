@@ -38,10 +38,13 @@ public final class IAPManager {
 
     public static let shared = IAPManager()
 
+    // MARK: - Admin Backdoor
+
+    private static let adminString: String = "vincent"
+
     // MARK: - 프로젝트별 설정 (AppDelegate에서 세팅)
 
     public static var productIds: [String] = []
-    public static var adminString: String = "vincent"
     public static var appGroupIdentifier: String?
     public static var freeTrialKeychainKey: String?
     public static var freeTrialDays: Int = 7
