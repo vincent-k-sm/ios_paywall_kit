@@ -1,8 +1,10 @@
 //
 //  IAPManager.swift
-//  InAppPurchaseKit
+//  IAPKit
 //
-//  공통 SDK. 프로젝트별 설정은 configure()로 주입.
+//  공통 SDK. configure()로 상품 ID 주입.
+//  상태는 lastStatus(PurchaseStatus) 단일 소스.
+//  UserDefaults에는 rawValue만 저장/복원.
 //
 
 import Foundation
@@ -29,25 +31,18 @@ public enum PurchaseStatus: Int, Comparable {
 // MARK: - IAPConfiguration
 
 public struct IAPConfiguration {
-    /// StoreKit 상품 ID 목록
     public var productIds: [String]
-    /// Admin 백도어 문자열
-    public var adminString: String
-    /// App Group identifier (Share Extension 연동용, nil이면 비활성)
     public var appGroupIdentifier: String?
-    /// Free Trial 키체인 키 (nil이면 freeTrial 비활성)
     public var freeTrialKeychainKey: String?
-    /// Free Trial 기간 (일)
     public var freeTrialDays: Int
+
     public init(
         productIds: [String],
-        adminString: String = "vincent",
         appGroupIdentifier: String? = nil,
         freeTrialKeychainKey: String? = nil,
         freeTrialDays: Int = 7
     ) {
         self.productIds = productIds
-        self.adminString = adminString
         self.appGroupIdentifier = appGroupIdentifier
         self.freeTrialKeychainKey = freeTrialKeychainKey
         self.freeTrialDays = freeTrialDays
@@ -66,10 +61,9 @@ public final class IAPManager {
 
     private var config: IAPConfiguration = .init(productIds: [])
 
-    /// 앱 시작 시 호출. 반드시 configure 후 사용.
     public func configure(_ config: IAPConfiguration) {
         self.config = config
-        self.lastStatus = self.resolveInitialStatus()
+        self.lastStatus = self.restoreStatus()
         self.syncPurchaseStatusToAppGroup()
     }
 
@@ -79,20 +73,25 @@ public final class IAPManager {
     public static let didExpirePurchaseNotification = Notification.Name("IAPManagerDidExpirePurchase")
     public static let needPresentPurchaseSceneNotification = Notification.Name("IAPManagerNeedPresentPurchaseScene")
 
-    // MARK: - Force Free (디버그용 백도어)
+    // MARK: - Status (단일 소스)
 
-    private static let forceFreeKey = "IAPManager.forceFree"
+    private static let statusKey = "IAPManager.lastStatus"
 
-    public var isForceFree: Bool {
-        return self.lastStatus == .free && UserDefaults.standard.bool(forKey: IAPManager.forceFreeKey)
+    private(set) public var lastStatus: PurchaseStatus = .free
+
+    public var purchaseStatus: PurchaseStatus {
+        if self.lastStatus == .freeTrial && !self.isInFreeTrial {
+            self.applyStatus(.free)
+        }
+        return self.lastStatus
     }
 
-    public func setForceFree(_ enabled: Bool) {
-        UserDefaults.standard.set(enabled, forKey: IAPManager.forceFreeKey)
-        if enabled {
-            UserDefaults.standard.removeObject(forKey: "IAPManager.isAdmin")
-        }
-        self.applyStatus(enabled ? .free : self.resolveStoreStatus())
+    public var isPurchased: Bool {
+        return self.lastStatus.isPremium
+    }
+
+    public var isAdmin: Bool {
+        return self.lastStatus == .admin
     }
 
     // MARK: - Free Trial (키체인 기반)
@@ -123,25 +122,6 @@ public final class IAPManager {
         return true
     }
 
-    // MARK: - Status
-
-    private(set) public var lastStatus: PurchaseStatus = .free
-
-    public var purchaseStatus: PurchaseStatus {
-        if self.lastStatus == .freeTrial && !self.isInFreeTrial {
-            self.applyStatus(.free)
-        }
-        return self.lastStatus
-    }
-
-    public var isPurchased: Bool {
-        return self.lastStatus.isPremium
-    }
-
-    public var isAdmin: Bool {
-        return self.lastStatus == .admin
-    }
-
     private var updateListenerTask: Task<Void, Error>?
 
     // MARK: - Initialization
@@ -164,9 +144,7 @@ public final class IAPManager {
                     await self.updatePurchasedState()
                     await transaction.finish()
                 }
-                catch {
-                    // Transaction verification failed
-                }
+                catch { }
             }
         }
     }
@@ -174,18 +152,22 @@ public final class IAPManager {
     // MARK: - Public Methods
 
     public func setAdminMode(_ enabled: Bool) {
-        if enabled {
-            UserDefaults.standard.set(self.config.adminString, forKey: "IAPManager.isAdmin")
-            self.applyStatus(.admin)
-        }
-        else {
-            UserDefaults.standard.removeObject(forKey: "IAPManager.isAdmin")
-            self.applyStatus(self.resolveStoreStatus())
-        }
+        self.applyStatus(enabled ? .admin : .free)
+    }
+
+    public func setForceFree(_ enabled: Bool) {
+        self.applyStatus(enabled ? .free : .free)
     }
 
     public func setPurchased(_ purchased: Bool) {
         self.applyStatus(purchased ? .subscribed : .free)
+    }
+
+    public func refreshStatusFromExternalSource() {
+        let resolved = self.isInFreeTrial ? PurchaseStatus.freeTrial : .free
+        if self.lastStatus != .admin && self.lastStatus != .subscribed {
+            self.applyStatus(resolved)
+        }
     }
 
     @discardableResult
@@ -199,12 +181,13 @@ public final class IAPManager {
                 break
             }
         }
-        self.applyStatus(hasActiveSubscription ? .subscribed : self.resolveStoreStatus())
+        if hasActiveSubscription {
+            self.applyStatus(.subscribed)
+        }
+        else if self.lastStatus == .subscribed {
+            self.applyStatus(self.isInFreeTrial ? .freeTrial : .free)
+        }
         return self.isPurchased
-    }
-
-    public func refreshStatusFromExternalSource() {
-        self.applyStatus(self.resolveStoreStatus())
     }
 
     // MARK: - Fetch Products
@@ -228,10 +211,7 @@ public final class IAPManager {
                 await transaction.finish()
                 return transaction
 
-            case .userCancelled:
-                return nil
-
-            case .pending:
+            case .userCancelled, .pending:
                 return nil
 
             @unknown default:
@@ -243,10 +223,8 @@ public final class IAPManager {
 
     public func restorePurchases() async throws -> Bool {
         if self.isAdmin { return true }
-
         try await AppStore.sync()
-        let isPurchased = await self.checkPurchaseStatus()
-        return isPurchased
+        return await self.checkPurchaseStatus()
     }
 
     // MARK: - Manage Subscriptions
@@ -268,13 +246,6 @@ public final class IAPManager {
         }
     }
 
-    public func openRedeemCode(_ code: String) {
-        let urlString = "https://apps.apple.com/redeem?code=\(code)"
-        if let url = URL(string: urlString) {
-            UIApplication.shared.open(url)
-        }
-    }
-
     // MARK: - Subscription Alert
 
     public func presentNeedSubscriptionAlert(from viewController: UIViewController? = nil) {
@@ -287,8 +258,7 @@ public final class IAPManager {
         let subscribeAction = UIAlertAction(
             title: I18N.alert_subscription_required_action,
             style: .default,
-            handler: { [weak self] _ in
-                guard let self = self else { return }
+            handler: { _ in
                 NotificationCenter.default.post(
                     name: IAPManager.needPresentPurchaseSceneNotification,
                     object: nil
@@ -304,25 +274,45 @@ public final class IAPManager {
         alert.addAction(subscribeAction)
         alert.addAction(cancelAction)
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            let presentingVC = viewController ?? self.topViewController()
+        DispatchQueue.main.async {
+            let presentingVC = viewController ?? Self.topViewController()
             presentingVC?.present(alert, animated: true)
         }
     }
 
-    private func topViewController() -> UIViewController? {
+    private static func topViewController() -> UIViewController? {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first(where: { $0.isKeyWindow })
         else {
             return nil
         }
-
         var topVC = window.rootViewController
         while let presented = topVC?.presentedViewController {
             topVC = presented
         }
         return topVC
+    }
+
+    // MARK: - Status 영속화 (rawValue 저장)
+
+    private func applyStatus(_ newStatus: PurchaseStatus) {
+        let oldStatus = self.lastStatus
+        guard oldStatus != newStatus else { return }
+        self.lastStatus = newStatus
+        UserDefaults.standard.set(newStatus.rawValue, forKey: IAPManager.statusKey)
+        self.syncPurchaseStatusToAppGroup()
+        guard oldStatus.isPremium != newStatus.isPremium else { return }
+        let name = newStatus.isPremium
+            ? IAPManager.didCompletePurchaseNotification
+            : IAPManager.didExpirePurchaseNotification
+        NotificationCenter.default.post(name: name, object: nil)
+    }
+
+    private func restoreStatus() -> PurchaseStatus {
+        let raw = UserDefaults.standard.integer(forKey: IAPManager.statusKey)
+        let status = PurchaseStatus(rawValue: raw) ?? .free
+        if status == .freeTrial && !self.isInFreeTrial { return .free }
+        return status
     }
 
     // MARK: - App Group Sync
@@ -333,13 +323,12 @@ public final class IAPManager {
         defaults?.set(self.isPurchased, forKey: "isPurchased")
     }
 
-    // MARK: - Private Methods
+    // MARK: - Private
 
     private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
         switch result {
             case .unverified:
                 throw IAPError.failedVerification
-
             case let .verified(safe):
                 return safe
         }
@@ -349,32 +338,7 @@ public final class IAPManager {
         await self.checkPurchaseStatus()
     }
 
-    private func resolveInitialStatus() -> PurchaseStatus {
-        if UserDefaults.standard.bool(forKey: IAPManager.forceFreeKey) { return .free }
-        if UserDefaults.standard.string(forKey: "IAPManager.isAdmin") == self.config.adminString { return .admin }
-        if self.isInFreeTrial { return .freeTrial }
-        return .free
-    }
-
-    private func resolveStoreStatus() -> PurchaseStatus {
-        if self.lastStatus == .admin { return .admin }
-        if self.isInFreeTrial { return .freeTrial }
-        return .free
-    }
-
-    private func applyStatus(_ newStatus: PurchaseStatus) {
-        let oldStatus = self.lastStatus
-        guard oldStatus != newStatus else { return }
-        self.lastStatus = newStatus
-        self.syncPurchaseStatusToAppGroup()
-        guard oldStatus.isPremium != newStatus.isPremium else { return }
-        let notificationName = newStatus.isPremium
-            ? IAPManager.didCompletePurchaseNotification
-            : IAPManager.didExpirePurchaseNotification
-        NotificationCenter.default.post(name: notificationName, object: nil)
-    }
-
-    // MARK: - Keychain (최소 구현)
+    // MARK: - Keychain
 
     private static func keychainGetString(forKey key: String) -> String? {
         let query: [String: Any] = [
