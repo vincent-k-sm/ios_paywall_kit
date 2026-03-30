@@ -1,0 +1,135 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "InAppPurchaseKit-arm64-apple-macosx26.0-debug.module": ["<InAppPurchaseKit-arm64-apple-macosx26.0-debug.module>"]
+  "InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.module": ["<InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.module>"]
+  "InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.test": ["<InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.test>"]
+  "InAppPurchaseKitTests-arm64-apple-macosx26.0-debug.module": ["<InAppPurchaseKitTests-arm64-apple-macosx26.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<InAppPurchaseKit-arm64-apple-macosx26.0-debug.module>"]
+  "test": ["<InAppPurchaseKit-arm64-apple-macosx26.0-debug.module>","<InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.test>","<InAppPurchaseKitTests-arm64-apple-macosx26.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Tests/InAppPurchaseKitTests/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/I18N.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/IAPError.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/IAPManager.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/DerivedSources/resource_bundle_accessor.swift"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/sources"]
+    description: "Write auxiliary file /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/sources"
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.derived/runner.swift"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/sources"]
+    description: "Write auxiliary file /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/sources"
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.derived/runner.swift":
+    tool: test-entry-point-tool
+    inputs: []
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.derived/runner.swift"]
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/InAppPurchaseKitTests.swift.o"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.product/Objects.LinkFileList"
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Tests/InAppPurchaseKitTests/InAppPurchaseKitTests.swift"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/sources"]
+    description: "Write auxiliary file /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/sources"
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/Info.plist":
+    tool: copy-tool
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/Info.plist"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/Info.plist"]
+    description: "Copying /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/Info.plist"
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/en.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/Localizable/en.lproj/Localizable.strings"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/en.lproj/Localizable.strings"]
+    description: "Copying /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/Localizable/en.lproj/Localizable.strings"
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/ko.lproj/Localizable.strings":
+    tool: copy-tool
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/Localizable/ko.lproj/Localizable.strings"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/ko.lproj/Localizable.strings"]
+    description: "Copying /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/Localizable/ko.lproj/Localizable.strings"
+
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+
+  "<InAppPurchaseKit-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKit.swiftmodule"]
+    outputs: ["<InAppPurchaseKit-arm64-apple-macosx26.0-debug.module>"]
+
+  "<InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitPackageTests.swiftmodule"]
+    outputs: ["<InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.module>"]
+
+  "<InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.test>":
+    tool: phony
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.xctest/Contents/MacOS/InAppPurchaseKitPackageTests"]
+    outputs: ["<InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.test>"]
+
+  "<InAppPurchaseKitTests-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/InAppPurchaseKitTests.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitTests.swiftmodule"]
+    outputs: ["<InAppPurchaseKitTests-arm64-apple-macosx26.0-debug.module>"]
+
+  "C.InAppPurchaseKit-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/I18N.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/IAPError.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/IAPManager.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/DerivedSources/resource_bundle_accessor.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","<InAppPurchaseKit-arm64-apple-macosx26.0-debug.module-resources>","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/sources"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKit.swiftmodule"]
+    description: "Compiling Swift Module 'InAppPurchaseKit' (4 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","InAppPurchaseKit","-emit-dependencies","-emit-module","-emit-module-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKit.swiftmodule","-output-file-map","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/sources","-I","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE","-module-cache-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/include/InAppPurchaseKit-Swift.h","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","inapppurchasekit"]
+
+  "C.InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.derived/runner.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitTests.swiftmodule","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/sources"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitPackageTests.swiftmodule"]
+    description: "Compiling Swift Module 'InAppPurchaseKitPackageTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","InAppPurchaseKitPackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitPackageTests.swiftmodule","-output-file-map","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/sources","-I","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j10","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/include/InAppPurchaseKitPackageTests-Swift.h","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","inapppurchasekit"]
+
+  "C.InAppPurchaseKitPackageTests-arm64-apple-macosx26.0-debug.test":
+    tool: shell
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/InAppPurchaseKitTests.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.product/Objects.LinkFileList"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.xctest/Contents/MacOS/InAppPurchaseKitPackageTests"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.xctest/Contents/MacOS/InAppPurchaseKitPackageTests"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug","-o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.xctest/Contents/MacOS/InAppPurchaseKitPackageTests","-module-name","InAppPurchaseKitPackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-Xlinker","-add_ast_path","-Xlinker","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKit.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitPackageTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitTests.swiftmodule","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.InAppPurchaseKitTests-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Tests/InAppPurchaseKitTests/InAppPurchaseKitTests.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKit.swiftmodule","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/sources"]
+    outputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/InAppPurchaseKitTests.swift.o","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitTests.swiftmodule"]
+    description: "Compiling Swift Module 'InAppPurchaseKitTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","InAppPurchaseKitTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules/InAppPurchaseKitTests.swiftmodule","-output-file-map","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitTests.build/sources","-I","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j10","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","inapppurchasekit"]
+
+  "InAppPurchaseKit-arm64-apple-macosx26.0-debug.module-resources":
+    tool: phony
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/en.lproj/Localizable.strings","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/ko.lproj/Localizable.strings","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit_InAppPurchaseKit.bundle/Info.plist"]
+    outputs: ["<InAppPurchaseKit-arm64-apple-macosx26.0-debug.module-resources>"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Tests/InAppPurchaseKitTests/","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Package.swift","/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

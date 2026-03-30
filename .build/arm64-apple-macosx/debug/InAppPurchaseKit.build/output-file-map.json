@@ -1,0 +1,33 @@
+{
+  "": {
+    "swift-dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/master.swiftdeps"
+  },
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/I18N.swift": {
+    "dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.d",
+    "object": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.swift.o",
+    "swiftmodule": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N~partial.swiftmodule",
+    "swift-dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.swiftdeps",
+    "diagnostics": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/I18N.dia"
+  },
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/IAPError.swift": {
+    "dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.d",
+    "object": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.swift.o",
+    "swiftmodule": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError~partial.swiftmodule",
+    "swift-dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.swiftdeps",
+    "diagnostics": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPError.dia"
+  },
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/Sources/InAppPurchaseKit/IAPManager.swift": {
+    "dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.d",
+    "object": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.swift.o",
+    "swiftmodule": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.swiftdeps",
+    "diagnostics": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/IAPManager.dia"
+  },
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/DerivedSources/resource_bundle_accessor.swift": {
+    "dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.d",
+    "object": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKit.build/resource_bundle_accessor.dia"
+  }
+}

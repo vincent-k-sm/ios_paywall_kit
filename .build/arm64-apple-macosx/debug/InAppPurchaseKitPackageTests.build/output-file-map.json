@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/master.swiftdeps"
+  },
+  "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.d",
+    "object": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/vincent/Desktop/PersonalProject/InAppPurchaseKit/.build/arm64-apple-macosx/debug/InAppPurchaseKitPackageTests.build/runner.dia"
+  }
+}
