@@ -17,7 +17,7 @@ let package = Package(
     targets: [
         .target(
             name: "InAppPurchaseKitCore",
-            path: "Sources/InAppPurchaseKit",
+            path: "Sources/InAppPurchaseKitCore",
             resources: [
                 .process("Localizable")
             ]
