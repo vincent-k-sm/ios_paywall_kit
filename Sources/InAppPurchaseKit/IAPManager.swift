@@ -193,12 +193,7 @@ public final class IAPManager {
                 break
             }
         }
-        if hasActiveSubscription {
-            self.applyStatus(.subscribed)
-        }
-        else if self.lastStatus == .subscribed {
-            self.applyStatus(self.defaultFreeStatus)
-        }
+        self.applyStatus(hasActiveSubscription ? .subscribed : self.defaultFreeStatus)
         return self.isPurchased
     }
 
