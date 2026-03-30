@@ -128,6 +128,7 @@ public final class IAPManager {
         self.lastStatus = self.restoreStatus()
         self.updateListenerTask = self.listenForTransactions()
         self.syncPurchaseStatusToAppGroup()
+        Task { await self.checkPurchaseStatus() }
     }
 
     deinit {
