@@ -63,6 +63,9 @@ public final class IAPManager {
         Self.appGroupIdentifier = appGroupIdentifier
         Self.freeTrialKeychainKey = freeTrialKeychainKey
         Self.freeTrialDays = freeTrialDays
+        Self.shared.lastStatus = Self.shared.restoreStatus()
+        Self.shared.syncPurchaseStatusToAppGroup()
+        Task { await Self.shared.checkPurchaseStatus() }
     }
 
     // MARK: - Notifications
