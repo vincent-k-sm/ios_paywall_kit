@@ -30,28 +30,6 @@ public enum PurchaseStatus: Int, Comparable {
 
 // MARK: - IAPConfiguration
 
-public struct IAPConfiguration {
-    public var productIds: [String]
-    public var adminString: String
-    public var appGroupIdentifier: String?
-    public var freeTrialKeychainKey: String?
-    public var freeTrialDays: Int
-
-    public init(
-        productIds: [String],
-        adminString: String,
-        appGroupIdentifier: String? = nil,
-        freeTrialKeychainKey: String? = nil,
-        freeTrialDays: Int = 7
-    ) {
-        self.productIds = productIds
-        self.adminString = adminString
-        self.appGroupIdentifier = appGroupIdentifier
-        self.freeTrialKeychainKey = freeTrialKeychainKey
-        self.freeTrialDays = freeTrialDays
-    }
-}
-
 // MARK: - IAPManager
 
 public final class IAPManager {
@@ -60,15 +38,13 @@ public final class IAPManager {
 
     public static let shared = IAPManager()
 
-    // MARK: - Configuration
+    // MARK: - 프로젝트별 설정 (AppDelegate에서 세팅)
 
-    private(set) public var config: IAPConfiguration = .init(productIds: [], adminString: "")
-
-    public func configure(_ config: IAPConfiguration) {
-        self.config = config
-        self.lastStatus = self.restoreStatus()
-        self.syncPurchaseStatusToAppGroup()
-    }
+    public static var productIds: [String] = []
+    public static var adminString: String = "vincent"
+    public static var appGroupIdentifier: String?
+    public static var freeTrialKeychainKey: String?
+    public static var freeTrialDays: Int = 7
 
     // MARK: - Notifications
 
@@ -100,24 +76,24 @@ public final class IAPManager {
     // MARK: - Free Trial (키체인 기반)
 
     public var isInFreeTrial: Bool {
-        guard let key = self.config.freeTrialKeychainKey,
+        guard let key = Self.freeTrialKeychainKey,
               let startDateString = Self.keychainGetString(forKey: key),
               let startDate = ISO8601DateFormatter().date(from: startDateString)
         else {
             return false
         }
         let elapsed = Calendar.current.dateComponents([.day], from: startDate, to: Date()).day ?? 0
-        return elapsed < self.config.freeTrialDays
+        return elapsed < Self.freeTrialDays
     }
 
     public var hasUsedFreeTrial: Bool {
-        guard let key = self.config.freeTrialKeychainKey else { return false }
+        guard let key = Self.freeTrialKeychainKey else { return false }
         return Self.keychainGetString(forKey: key) != nil
     }
 
     @discardableResult
     public func startFreeTrialIfNeeded() -> Bool {
-        guard let key = self.config.freeTrialKeychainKey else { return false }
+        guard let key = Self.freeTrialKeychainKey else { return false }
         guard !self.hasUsedFreeTrial else { return false }
         let formatter = ISO8601DateFormatter()
         Self.keychainSetString(formatter.string(from: Date()), forKey: key)
@@ -130,7 +106,9 @@ public final class IAPManager {
     // MARK: - Initialization
 
     private init() {
+        self.lastStatus = self.restoreStatus()
         self.updateListenerTask = self.listenForTransactions()
+        self.syncPurchaseStatusToAppGroup()
     }
 
     deinit {
@@ -156,7 +134,7 @@ public final class IAPManager {
 
     @discardableResult
     public func verifyAdminCode(_ code: String) -> Bool {
-        let isValid = code.lowercased() == self.config.adminString.lowercased()
+        let isValid = code.lowercased() == Self.adminString.lowercased()
         self.applyStatus(isValid ? .admin : self.isInFreeTrial ? .freeTrial : .free)
         return isValid
     }
@@ -205,7 +183,7 @@ public final class IAPManager {
     // MARK: - Fetch Products
 
     public func fetchProducts() async throws -> [Product] {
-        let products = try await Product.products(for: self.config.productIds)
+        let products = try await Product.products(for: Self.productIds)
         return products.sorted { $0.price < $1.price }
     }
 
@@ -330,7 +308,7 @@ public final class IAPManager {
     // MARK: - App Group Sync
 
     private func syncPurchaseStatusToAppGroup() {
-        guard let groupId = self.config.appGroupIdentifier else { return }
+        guard let groupId = Self.appGroupIdentifier else { return }
         let defaults = UserDefaults(suiteName: groupId)
         defaults?.set(self.isPurchased, forKey: "isPurchased")
     }
