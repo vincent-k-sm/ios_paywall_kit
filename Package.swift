@@ -6,7 +6,7 @@ let package = Package(
     name: "ios_in_app_purchase_kit",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v17)
+        .iOS(.v15)
     ],
     products: [
         .library(
