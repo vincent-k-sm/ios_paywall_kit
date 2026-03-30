@@ -22,14 +22,17 @@ open class IAPServiceBase {
 
     // MARK: - Configure
 
+    public static var products: [IAPProduct] = []
+
     public static func configure(
-        productIds: [String],
+        products: [IAPProduct],
         appGroupIdentifier: String? = nil,
         freeTrialKeychainKey: String? = nil,
         freeTrialDays: Int = 7
     ) {
+        Self.products = products
         IAPManager.configure(
-            productIds: productIds,
+            productIds: products.map { $0.id },
             appGroupIdentifier: appGroupIdentifier,
             freeTrialKeychainKey: freeTrialKeychainKey,
             freeTrialDays: freeTrialDays
