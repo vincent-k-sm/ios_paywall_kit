@@ -10,9 +10,6 @@ import Foundation
 import StoreKit
 import UIKit
 
-public protocol AvailablePremiumFeatures {
-}
-
 open class IAPServiceBase {
 
     public init() { }
