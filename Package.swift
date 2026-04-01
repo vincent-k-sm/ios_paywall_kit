@@ -3,29 +3,47 @@
 import PackageDescription
 
 let package = Package(
-    name: "ios_in_app_purchase_kit",
+    name: "STPaywallKit",
     defaultLocalization: "en",
     platforms: [
         .iOS(.v15)
     ],
     products: [
         .library(
-            name: "InAppPurchaseKitCore",
-            targets: ["InAppPurchaseKitCore"]
+            name: "STPaywallCore",
+            targets: ["STPaywallCore"]
+        ),
+        .library(
+            name: "STPaywallUIKit",
+            targets: ["STPaywallUIKit"]
         )
+    ],
+    dependencies: [
+        .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: Version(5, 0, 0)))
     ],
     targets: [
         .target(
-            name: "InAppPurchaseKitCore",
-            path: "Sources/InAppPurchaseKitCore",
+            name: "STPaywallCore",
+            path: "Sources/STPaywallCore",
+            resources: [
+                .process("Localizable")
+            ]
+        ),
+        .target(
+            name: "STPaywallUIKit",
+            dependencies: [
+                "STPaywallCore",
+                "SnapKit"
+            ],
+            path: "Sources/STPaywallUIKit",
             resources: [
                 .process("Localizable")
             ]
         ),
         .testTarget(
-            name: "InAppPurchaseKitCoreTests",
-            dependencies: ["InAppPurchaseKitCore"],
-            path: "Tests/InAppPurchaseKitTests"
+            name: "STPaywallCoreTests",
+            dependencies: ["STPaywallCore"],
+            path: "Tests/STPaywallCoreTests"
         )
     ]
 )
