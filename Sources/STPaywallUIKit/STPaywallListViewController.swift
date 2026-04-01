@@ -33,6 +33,8 @@ open class STPaywallListViewController: UIViewController {
     private var subscriptionItems: [SubscriptionItem] = SubscriptionItem.allCases
     private var cachedAdditionalSections: [STPaywallSection] = []
     private var cancellables = Set<AnyCancellable>()
+    private var adminTapView: UIView?
+    private var adminTapCount: Int = 0
 
     private var serviceBase: IAPServiceBase {
         return self.configuration.serviceBase
@@ -75,6 +77,13 @@ open class STPaywallListViewController: UIViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadAllSections()
+        self.setupAdminTapArea()
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.adminTapView?.removeFromSuperview()
+        self.adminTapView = nil
     }
 
     @objc private func appDidBecomeActive() {
@@ -88,10 +97,6 @@ open class STPaywallListViewController: UIViewController {
         self.view.backgroundColor = STPaywallColors.background
         self.navigationItem.title = self.configuration.sceneTitle
 
-        if let items = self.trailingBarButtonItems() {
-            self.navigationItem.rightBarButtonItems = items
-        }
-
         self.view.addSubview(self.tableView)
 
         self.tableView.snp.makeConstraints { make in
@@ -104,11 +109,6 @@ open class STPaywallListViewController: UIViewController {
     /// 프로젝트별 추가 섹션. 구독 관리 섹션 아래에 순서대로 표시.
     open func additionalSections() -> [STPaywallSection] {
         return []
-    }
-
-    /// 네비게이션 우측 버튼. 기본: nil.
-    open func trailingBarButtonItems() -> [UIBarButtonItem]? {
-        return nil
     }
 
     /// Detail 화면 생성. 커스텀 Detail VC 사용 시 오버라이드.
@@ -182,6 +182,69 @@ open class STPaywallListViewController: UIViewController {
         let navController = UINavigationController(rootViewController: detailVC)
         navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true, completion: nil)
+    }
+
+    // MARK: - Admin
+
+    private func setupAdminTapArea() {
+        guard self.adminTapView == nil,
+              let navBar = self.navigationController?.navigationBar
+        else { return }
+
+        let tapView = UIView()
+        tapView.backgroundColor = .clear
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.adminAreaTapped))
+        tapView.addGestureRecognizer(tapGesture)
+        navBar.addSubview(tapView)
+        tapView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(8)
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(44)
+        }
+        self.adminTapView = tapView
+    }
+
+    @objc private func adminAreaTapped() {
+        self.adminTapCount += 1
+        if self.adminTapCount >= 5 {
+            self.adminTapCount = 0
+            self.showAdminAlert()
+        }
+    }
+
+    private func showAdminAlert() {
+        let alert = UIAlertController(
+            title: "Admin",
+            message: nil,
+            preferredStyle: .alert
+        )
+        alert.addTextField { textField in
+            textField.isSecureTextEntry = true
+        }
+        alert.addAction(UIAlertAction(title: I18N.common_cancel, style: .cancel))
+        alert.addAction(UIAlertAction(title: I18N.common_confirm, style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            guard let code = alert.textFields?.first?.text?.lowercased() else { return }
+
+            if code == "프리" || code == "free" {
+                let isForceFree = !self.serviceBase.isForceFree
+                self.serviceBase.setForceFree(isForceFree)
+                let message = isForceFree
+                    ? "ForceFree ON"
+                    : "ForceFree OFF"
+                self.showToast(message)
+                self.reloadAllSections()
+                return
+            }
+
+            let isAdmin = self.serviceBase.verify(code: code)
+            let message = isAdmin
+                ? "Admin ON"
+                : "Admin OFF"
+            self.showToast(message)
+            self.reloadAllSections()
+        }))
+        self.present(alert, animated: true)
     }
 }
 
