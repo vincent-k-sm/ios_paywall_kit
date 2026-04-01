@@ -1,0 +1,36 @@
+// MARK: - Common
+"stpaywall_common_confirm" = "확인";
+"stpaywall_common_cancel" = "취소";
+
+// MARK: - List Scene
+"stpaywall_list_section_subscription" = "구독 관리";
+"stpaywall_list_menu_subscription_info" = "구독 정보";
+"stpaywall_list_menu_restore" = "구매 복원";
+"stpaywall_list_menu_manage_subscription" = "구독 관리";
+"stpaywall_list_msg_restore_success" = "복원이 완료되었습니다";
+"stpaywall_list_msg_restore_failed" = "복원할 구매 내역이 없습니다";
+"stpaywall_list_status_subscribed" = "구독 중";
+
+// MARK: - Detail Scene
+"stpaywall_detail_price_format" = "%@ / %@";
+"stpaywall_detail_period_day" = "일";
+"stpaywall_detail_period_week" = "주";
+"stpaywall_detail_period_month" = "월";
+"stpaywall_detail_period_year" = "년";
+"stpaywall_detail_promotion_free_trial" = "무료 체험";
+"stpaywall_detail_promotion_introductory" = "첫 구독 할인";
+"stpaywall_detail_restore_desc" = "이전에 구매하셨나요?\n여기를 눌러 복원하세요";
+"stpaywall_detail_terms_link" = "이용약관 및 개인정보처리방침";
+"stpaywall_detail_btn_subscribe" = "구독하기";
+"stpaywall_detail_btn_subscribed" = "이미 구독 중";
+"stpaywall_detail_msg_success" = "구매가 완료되었습니다";
+"stpaywall_detail_msg_restore_success" = "구매 내역이 복원되었습니다";
+"stpaywall_detail_msg_restore_failed" = "복원할 구매 내역이 없습니다";
+"stpaywall_detail_msg_pending" = "구매가 대기 중입니다";
+"stpaywall_detail_msg_verification_failed" = "구매 검증에 실패했습니다";
+"stpaywall_detail_msg_error" = "구매 중 오류가 발생했습니다";
+"stpaywall_detail_msg_fetch_failed" = "상품 정보를 불러올 수 없습니다";
+"stpaywall_detail_terms_action_title" = "서비스 이용약관";
+"stpaywall_detail_terms_action_message" = "약관 유형을 선택하세요";
+"stpaywall_detail_terms_of_service" = "서비스 이용약관";
+"stpaywall_detail_privacy_policy" = "개인정보 처리방침";

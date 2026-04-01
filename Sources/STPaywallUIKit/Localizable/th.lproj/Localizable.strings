@@ -1,0 +1,36 @@
+// MARK: - Common
+"stpaywall_common_confirm" = "OK";
+"stpaywall_common_cancel" = "Cancel";
+
+// MARK: - List Scene
+"stpaywall_list_section_subscription" = "Subscription";
+"stpaywall_list_menu_subscription_info" = "Subscription Info";
+"stpaywall_list_menu_restore" = "Restore Purchase";
+"stpaywall_list_menu_manage_subscription" = "Manage Subscription";
+"stpaywall_list_msg_restore_success" = "Restore completed";
+"stpaywall_list_msg_restore_failed" = "No purchases to restore";
+"stpaywall_list_status_subscribed" = "Subscribed";
+
+// MARK: - Detail Scene
+"stpaywall_detail_price_format" = "%@ / %@";
+"stpaywall_detail_period_day" = "day";
+"stpaywall_detail_period_week" = "week";
+"stpaywall_detail_period_month" = "month";
+"stpaywall_detail_period_year" = "year";
+"stpaywall_detail_promotion_free_trial" = "Free Trial";
+"stpaywall_detail_promotion_introductory" = "Introductory Offer";
+"stpaywall_detail_restore_desc" = "Already purchased?\nTap here to restore";
+"stpaywall_detail_terms_link" = "Terms of Service & Privacy Policy";
+"stpaywall_detail_btn_subscribe" = "Subscribe";
+"stpaywall_detail_btn_subscribed" = "Already Subscribed";
+"stpaywall_detail_msg_success" = "Purchase completed";
+"stpaywall_detail_msg_restore_success" = "Purchase restored";
+"stpaywall_detail_msg_restore_failed" = "No purchases to restore";
+"stpaywall_detail_msg_pending" = "Purchase is pending";
+"stpaywall_detail_msg_verification_failed" = "Purchase verification failed";
+"stpaywall_detail_msg_error" = "An error occurred during purchase";
+"stpaywall_detail_msg_fetch_failed" = "Unable to load product information";
+"stpaywall_detail_terms_action_title" = "Terms of Service";
+"stpaywall_detail_terms_action_message" = "Select the type of terms";
+"stpaywall_detail_terms_of_service" = "Terms of Service";
+"stpaywall_detail_privacy_policy" = "Privacy Policy";
