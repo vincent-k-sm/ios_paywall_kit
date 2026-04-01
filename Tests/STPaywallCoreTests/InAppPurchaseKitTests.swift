@@ -1,5 +1,5 @@
 import XCTest
-@testable import InAppPurchaseKitCore
+@testable import STPaywallCore
 
 final class InAppPurchaseKitTests: XCTestCase {
     func testPurchaseStatusComparable() {
