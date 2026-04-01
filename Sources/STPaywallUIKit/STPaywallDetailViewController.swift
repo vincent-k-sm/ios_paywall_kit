@@ -428,80 +428,38 @@ extension STPaywallDetailViewController: UITableViewDataSource {
 
         switch cellType {
             case let .header(viewModel):
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: STPaywallDetailHeaderCell.stIdentifier,
-                    for: indexPath
-                ) as? STPaywallDetailHeaderCell else {
-                    return UITableViewCell()
-                }
+                let cell = tableView.stDequeueCell(type: STPaywallDetailHeaderCell.self, for: indexPath)
                 cell.configure(with: viewModel)
                 return cell
 
             case let .feature(viewModel):
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: STPaywallDetailFeatureCell.stIdentifier,
-                    for: indexPath
-                ) as? STPaywallDetailFeatureCell else {
-                    return UITableViewCell()
-                }
+                let cell = tableView.stDequeueCell(type: STPaywallDetailFeatureCell.self, for: indexPath)
                 cell.configure(with: viewModel)
                 return cell
 
             case let .product(viewModel):
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: STPaywallDetailProductCell.stIdentifier,
-                    for: indexPath
-                ) as? STPaywallDetailProductCell else {
-                    return UITableViewCell()
-                }
+                let cell = tableView.stDequeueCell(type: STPaywallDetailProductCell.self, for: indexPath)
                 cell.configure(with: viewModel, isPurchased: self.serviceBase.isPremium)
-                cell.onSubscribeTapped = { [weak self] in
-                    self?.purchaseProduct(viewModel.id)
-                }
+                cell.delegate = self
                 return cell
 
             case .restore:
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: STPaywallDetailRestoreCell.stIdentifier,
-                    for: indexPath
-                ) as? STPaywallDetailRestoreCell else {
-                    return UITableViewCell()
-                }
-                cell.configure(onTap: { [weak self] in
-                    self?.restorePurchase()
-                })
+                let cell = tableView.stDequeueCell(type: STPaywallDetailRestoreCell.self, for: indexPath)
+                cell.delegate = self
                 return cell
 
             case .notice:
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: STPaywallDetailNoticeCell.stIdentifier,
-                    for: indexPath
-                ) as? STPaywallDetailNoticeCell else {
-                    return UITableViewCell()
-                }
+                let cell = tableView.stDequeueCell(type: STPaywallDetailNoticeCell.self, for: indexPath)
                 cell.configure(text: self.configuration.noticeText)
                 return cell
 
             case .terms:
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: STPaywallDetailTermsCell.stIdentifier,
-                    for: indexPath
-                ) as? STPaywallDetailTermsCell else {
-                    return UITableViewCell()
-                }
-                cell.configure(onTap: { [weak self] in
-                    self?.termsButtonTapped()
-                })
+                let cell = tableView.stDequeueCell(type: STPaywallDetailTermsCell.self, for: indexPath)
+                cell.delegate = self
                 return cell
 
-            case let .spacing(height):
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: STPaywallDetailSpacingCell.stIdentifier,
-                    for: indexPath
-                ) as? STPaywallDetailSpacingCell else {
-                    return UITableViewCell()
-                }
-                cell.configure(height: height)
+            case .spacing:
+                let cell = tableView.stDequeueCell(type: STPaywallDetailSpacingCell.self, for: indexPath)
                 return cell
         }
     }
@@ -534,5 +492,22 @@ extension STPaywallDetailViewController: UITableViewDelegate {
             case let .spacing(height):
                 return height
         }
+    }
+}
+
+// MARK: - STPaywallDetailCellDelegate
+
+extension STPaywallDetailViewController: STPaywallDetailCellDelegate {
+
+    func detailCellDidTapSubscribe(productId: String) {
+        self.purchaseProduct(productId)
+    }
+
+    func detailCellDidTapRestore() {
+        self.restorePurchase()
+    }
+
+    func detailCellDidTapTerms() {
+        self.termsButtonTapped()
     }
 }

@@ -15,4 +15,14 @@ extension UITableView {
     func stRegisterCell<T: UITableViewCell>(type: T.Type) {
         self.register(type, forCellReuseIdentifier: type.stIdentifier)
     }
+
+    func stDequeueCell<T: UITableViewCell>(type: T.Type, for indexPath: IndexPath) -> T {
+        guard let cell = self.dequeueReusableCell(
+            withIdentifier: type.stIdentifier,
+            for: indexPath
+        ) as? T else {
+            fatalError("Failed to dequeue cell: \(type.stIdentifier)")
+        }
+        return cell
+    }
 }

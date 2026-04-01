@@ -234,12 +234,7 @@ extension STPaywallListViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: STPaywallListCell.stIdentifier,
-            for: indexPath
-        ) as? STPaywallListCell else {
-            return UITableViewCell()
-        }
+        let cell = tableView.stDequeueCell(type: STPaywallListCell.self, for: indexPath)
 
         if indexPath.section == 0 {
             let item = self.subscriptionItems[indexPath.row]

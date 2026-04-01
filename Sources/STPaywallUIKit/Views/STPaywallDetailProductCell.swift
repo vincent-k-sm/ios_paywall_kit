@@ -122,7 +122,8 @@ final class STPaywallDetailProductCell: UITableViewCell {
 
     // MARK: - Properties
 
-    var onSubscribeTapped: (() -> Void)?
+    weak var delegate: STPaywallDetailCellDelegate?
+    private var productId: String = ""
 
     // MARK: - Initialization
 
@@ -155,7 +156,8 @@ final class STPaywallDetailProductCell: UITableViewCell {
         self.popularBadge.isHidden = true
         self.subscribedLabel.isHidden = true
         self.subscribeButton.isHidden = false
-        self.onSubscribeTapped = nil
+        self.delegate = nil
+        self.productId = ""
     }
 
     // MARK: - Setup Methods
@@ -220,6 +222,7 @@ final class STPaywallDetailProductCell: UITableViewCell {
         with viewModel: STPaywallDetailProductViewModel,
         isPurchased: Bool
     ) {
+        self.productId = viewModel.id
         self.priceLabel.text = viewModel.pricePerPeriod
         self.titleLabel.text = viewModel.title
         self.popularBadge.isHidden = !viewModel.isPopular
@@ -272,6 +275,6 @@ final class STPaywallDetailProductCell: UITableViewCell {
     // MARK: - Actions
 
     @objc private func subscribeButtonTapped() {
-        self.onSubscribeTapped?()
+        self.delegate?.detailCellDidTapSubscribe(productId: self.productId)
     }
 }

@@ -28,7 +28,7 @@ final class STPaywallDetailTermsCell: UITableViewCell {
 
     // MARK: - Properties
 
-    private var onTap: (() -> Void)?
+    weak var delegate: STPaywallDetailCellDelegate?
 
     // MARK: - Initialization
 
@@ -56,15 +56,9 @@ final class STPaywallDetailTermsCell: UITableViewCell {
         }
     }
 
-    // MARK: - Configuration
-
-    func configure(onTap: @escaping () -> Void) {
-        self.onTap = onTap
-    }
-
     // MARK: - Actions
 
     @objc private func buttonTapped() {
-        self.onTap?()
+        self.delegate?.detailCellDidTapTerms()
     }
 }
