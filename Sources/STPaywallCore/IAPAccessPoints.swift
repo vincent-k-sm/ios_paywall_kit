@@ -41,6 +41,8 @@ public protocol IAPAdminProvider {
     /// 무료 체험 시작
     @discardableResult
     func startFreeTrialIfNeeded() -> Bool
+    /// 무료 체험 강제 종료
+    func terminateFreeTrial()
     /// StoreKit 구독 검증
     @discardableResult
     func checkPurchaseStatus() async -> Bool

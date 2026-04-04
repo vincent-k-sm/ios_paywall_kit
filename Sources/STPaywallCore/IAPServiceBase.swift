@@ -104,6 +104,10 @@ open class IAPServiceBase: IAPStatusProvider, IAPAdminProvider {
         return IAPManager.shared.startFreeTrialIfNeeded()
     }
 
+    public func terminateFreeTrial() {
+        IAPManager.shared.terminateFreeTrial()
+    }
+
     @discardableResult
     public func checkPurchaseStatus() async -> Bool {
         return await IAPManager.shared.checkPurchaseStatus()

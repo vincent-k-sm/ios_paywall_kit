@@ -132,6 +132,18 @@ final class IAPManager {
         return true
     }
 
+    func terminateFreeTrial() {
+        guard let key = Self.freeTrialKeychainKey else { return }
+        let formatter = ISO8601DateFormatter()
+        var components = DateComponents()
+        components.year = 2000
+        components.month = 1
+        components.day = 1
+        let pastDate = Calendar.current.date(from: components) ?? Date.distantPast
+        Self.keychainSetString(formatter.string(from: pastDate), forKey: key)
+        self.applyStatus(.free)
+    }
+
     private var updateListenerTask: Task<Void, Error>?
 
     // MARK: - Initialization
