@@ -90,11 +90,8 @@ final class IAPManager {
 
     @Published private(set) var lastStatus: PurchaseStatus = .free
 
-    /// admin이 강제로 설정한 상태인지 여부
-    private var isAdminOverride: Bool = false
-
     var purchaseStatus: PurchaseStatus {
-        if !self.isAdminOverride && self.lastStatus == .freeTrial && !self.isInFreeTrial {
+        if self.lastStatus == .freeTrial && !self.isInFreeTrial {
             self.applyStatus(.free)
         }
         return self.lastStatus
@@ -145,6 +142,17 @@ final class IAPManager {
         Self.keychainSetString(formatter.string(from: Date()), forKey: key)
         self.applyStatus(.freeTrial)
         return true
+    }
+
+    /// admin 강제 설정용: 오늘 날짜로 trial 시작 (이전 사용 여부 무시)
+    func forceStartFreeTrial() {
+        guard let key = Self.freeTrialKeychainKey else {
+            self.applyStatus(.freeTrial)
+            return
+        }
+        let formatter = ISO8601DateFormatter()
+        Self.keychainSetString(formatter.string(from: Date()), forKey: key)
+        self.applyStatus(.freeTrial)
     }
 
     private func expireFreeTrialKeychain() {
@@ -230,11 +238,14 @@ final class IAPManager {
                 handler: { [weak self] _ in
                     guard let self = self else { return }
                     if let status = status {
-                        self.isAdminOverride = true
-                        self.applyStatus(status)
+                        if status == .freeTrial {
+                            self.forceStartFreeTrial()
+                        }
+                        else {
+                            self.applyStatus(status)
+                        }
                     }
                     else {
-                        self.isAdminOverride = false
                         Task { await self.checkPurchaseStatus() }
                     }
                     completion?()
