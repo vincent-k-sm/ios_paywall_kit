@@ -230,7 +230,7 @@ open class STPaywallDetailViewController: UIViewController {
                         switch verification {
                             case let .verified(transaction):
                                 await transaction.finish()
-                                self.serviceBase.setPurchased(true)
+                                await self.serviceBase.checkPurchaseStatus()
                                 self.didCompletePurchase(productId: product.id)
 
                                 await MainActor.run {
